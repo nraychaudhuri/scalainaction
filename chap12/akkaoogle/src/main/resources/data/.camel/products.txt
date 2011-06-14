@@ -1,0 +1,4 @@
+product1,vendorA,10,1
+product2,vendorB,20,2
+product3,vendorC,30,3
+product4,vendorD,40,4

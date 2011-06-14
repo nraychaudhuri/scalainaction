@@ -1,0 +1,11 @@
+#ignoring all the project class files
+*.class
+*.jar
+.DS_Store
+.history
+.metadata
+
+#removing all the sbt specific folders
+boot
+lib_managed
+target
