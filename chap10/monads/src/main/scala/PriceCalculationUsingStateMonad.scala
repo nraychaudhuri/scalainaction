@@ -53,7 +53,23 @@ object PriceCalculator {
   def applyTax(ps: PriceState): Double = {
     val tax = calculateTax(ps.productId, ps.price)
     ps.price + tax
-  }  
+  }
+  
+  def calculatePrice2(productId: String, stateCode: String): Double = {  
+    def modifyPriceState(f: PriceState => Double) = modify[PriceState](s => s.copy(price = f(s)))
+    val stateMonad = modifyPriceState(findBasePrice) flatMap {a => 
+      modifyPriceState(applyStateSpecificDiscount) flatMap {b => 
+        modifyPriceState(applyProductSpecificDiscount) flatMap {c => 
+          modifyPriceState(applyTax) map {d =>() }
+        }
+      } 
+    }
+    val initialPriceState = PriceState(productId, stateCode, 0.0)  
+    val finalPriceState = stateMonad.apply(initialPriceState)._1
+    val finalPrice = finalPriceState.price
+    finalPrice
+  }
+    
   
   def calculatePrice(productId: String, stateCode: String): Double = {  
     def modifyPriceState(f: PriceState => Double) = modify[PriceState](s => s.copy(price = f(s)))
@@ -68,7 +84,7 @@ object PriceCalculator {
     val finalPrice = finalPriceState.price
     finalPrice
   }
-  
+    
   def calculatePriceWithLog(productId: String, stateCode: String): Double = {  
     def modifyPriceState(f: PriceState => Double) = modify[PriceState](s => s.copy(price = f(s)))
     def logStep(f: PriceState => String) = gets(f)
