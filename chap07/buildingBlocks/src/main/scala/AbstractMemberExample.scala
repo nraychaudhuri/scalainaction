@@ -15,16 +15,15 @@ package abstractMember {
   }  
   
   class CostPlusCalculator extends Calculator {
-    type S = CostPlusDao
-    def initialize = new CostPlusDao
-    def close(dao: CostPlusDao) = dao.close
+    type S = MongoClient
+    def initialize = new MongoClient
+    def close(dao: MongoClient) = dao.close
     
-    def calculate(source: CostPlusDao, productId: String) = {
+    def calculate(source: MongoClient, productId: String) = {
       0.0
     }
   }
-  
-  class CostPlusDao {
+  class MongoClient {
     def close = {}
   }
 }
