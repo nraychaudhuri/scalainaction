@@ -3,3 +3,8 @@
 #
 # Ignoring the target and project/target directories
 target/
+
+# when the project is run by sbt 0.7.x, then this directory is used but must not be
+# checked in. 
+project\boot
+lib_managed
