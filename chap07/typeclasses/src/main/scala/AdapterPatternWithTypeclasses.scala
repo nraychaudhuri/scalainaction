@@ -1,4 +1,4 @@
-package chap07.typeclasses
+package chap07.typeclasses.xmlconverter
 
 trait XmlConverter[A] {
   def toXml(a: A): String
