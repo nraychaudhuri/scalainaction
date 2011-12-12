@@ -1,3 +1,5 @@
+package chap07.example.sensor
+
 abstract class SubjectObserver {
   type S <: Subject
   type O <: Observer
