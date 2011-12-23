@@ -13,6 +13,8 @@ libraryDependencies ++= Seq(
 	, "junit" % "junit" % "4.4" % "test"
 	, "com.novocode" % "junit-interface" % "0.5" % "test"
 	, "com.jayway.awaitility" % "awaitility-scala" % "1.3.1"
+	
+
 )
 
 
