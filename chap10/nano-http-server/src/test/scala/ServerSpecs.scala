@@ -5,8 +5,7 @@ class ServerSpecs extends Specification {
   "Light Server" should {
     "return the contents of available resource" in {
       val response = get("GET /test.txt HTTP/1.0\n".toIterator)(name => Server.IOResource(name))
-	  response.foreach{println}
-	  println("'" + response(4) + "'")
+
       response(0) must beEqualTo("HTTP/1.1 200 OK") 
       response(1) must beEqualTo("Date " + new java.util.Date) 
       response(2) must beEqualTo("Content-Type: text/html") 
