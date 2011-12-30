@@ -1,4 +1,4 @@
-import org.specs._
+import org.specs2.mutable._
 import cakepattern._
 class CalculatePriceServiceSpecification extends Specification with TestPricingSystem {
   "Calculate price service" should {

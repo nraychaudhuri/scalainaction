@@ -1,6 +1,9 @@
 package variousspecs
-import org.specs._
+
+import org.specs2.mutable._
 import cakepattern._
+
+
 
 object MySpec extends Specification {
   "example1" in {}
@@ -8,17 +11,19 @@ object MySpec extends Specification {
 }
 
 object SUTSpec extends Specification {
-  "my system" should {
-    "do this" in {}
-    "do that" in {}    
-  }
+	"my system" should {
+		"do this" in {  todo }
+		"do that" in {  todo }    
+	}
   
   "my system" should { 
-    doBefore {initSystem  }
-    doAfter { resetSystem  }
-    "mess up the system" in {}
-    "and again" in {}
-    
+    "mess up the system" in new cleanContext{}
+    "and again" in new cleanContext{}
+  }
+  
+  trait cleanContext extends BeforeAfter{
+	def before = initSystem
+    def after = resetSystem
   }
   
   def resetSystem = println("tear down")
@@ -26,7 +31,8 @@ object SUTSpec extends Specification {
 }
 
 
-import org.specs.util.DataTables
+import org.specs2.matcher.DataTables
+
 object PricingSystemSpec extends Specification with TestPricingSystem {
   "Calculate price service" should {
     "calculate price for cost plus price type" in {
