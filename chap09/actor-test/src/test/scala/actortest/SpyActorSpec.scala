@@ -1,5 +1,7 @@
 package actortest
-import org.specs._
+
+import org.specs2.mutable._
+
 import scala.actors.Actor
 import scala.actors.Actor._
 import spy._
@@ -14,18 +16,18 @@ class SpyActorSpec extends Specification {
     
       "enable synchronous assertion of specific messages" in {
           a ! "Hello" 
-          spyActor.lastOne must be("Hello")
+          spyActor.lastOne mustEqual "Hello"
       }
             
       "enable assertion of multiple messages received in specific order" in {
           a ! "Hello"
           a ! "world"
-          spyActor.last(2) must containAll(List("Hello", "world"))
+          spyActor.last(2) must containAllOf(List("Hello", "world"))
       }
              
       "enable assertion for no kind of message" in {
           b ! "eat it"    
-          spyActor.none must be(true)
+          spyActor.none mustEqual true
       }       
   }
 }

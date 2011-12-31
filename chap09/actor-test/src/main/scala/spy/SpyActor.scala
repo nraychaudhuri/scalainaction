@@ -2,6 +2,7 @@ package spy
 
 import scala.actors.{Actor, TIMEOUT}
 import Actor._
+
 class SpyActor(currentActor: Actor, timeout: Long) {
   
   def last(count: Int) = {
