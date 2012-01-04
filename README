@@ -1,3 +1,5 @@
 Forked to support the author of Scala in Action Nilanjan Raychauhuri via Feedback and bugfixes and for sure to learn :-)
 
 chap09 now moved to sbt 0.11.2 with specs2
+chap05 moved typical sbt project structure to sbt 0.11.2
+chap08 started to move to sbt 0.11.2. Fixed some test code to run on windows with passing tests.
