@@ -1,4 +1,4 @@
-name := "test"
+name := "ScalaHibernate"
 
 version := "1.0"
 
