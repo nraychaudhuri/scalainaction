@@ -1,1 +1,3 @@
 Forked to support the author of Scala in Action Nilanjan Raychauhuri via Feedback and bugfixes and for sure to learn :-)
+
+chap09 now moved to sbt 0.11.2 with specs2
