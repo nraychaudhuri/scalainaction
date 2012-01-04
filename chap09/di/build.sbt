@@ -7,7 +7,7 @@ organization := "Scala in action"
 scalaVersion := "2.9.1"
 
 libraryDependencies ++= Seq(
-	  "org.specs2" %% "specs2" % "1.7" % "test"
+	  "org.specs2" %% "specs2" % "1.7.1" % "test"
 	, "org.springframework" % "spring" % "2.5.6" % "test"
 	, "org.springframework" % "spring-test" % "2.5.6"
 	, "junit" % "junit" % "4.10" % "test"

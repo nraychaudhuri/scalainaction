@@ -2,7 +2,7 @@ name := "ActorTest"
 
 version := "1.0"
 
-organization := "Pillar technology Inc."
+organization := "Scala in Action"
 
 scalaVersion := "2.9.1" 
 
@@ -12,5 +12,5 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-	   "org.specs2" %% "specs2" % "1.7" % "test"
+	   "org.specs2" %% "specs2" % "1.7.1" % "test"
 )
