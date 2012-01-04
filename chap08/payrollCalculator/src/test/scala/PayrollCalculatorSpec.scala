@@ -14,7 +14,7 @@ class PayrollCalculatorSpec extends Specification {
       val calculator = new CompanyPayrollActor()
       val response = calculator !! FileLoad(testFile)
 
-      def errorHandler = future { Thread.sleep(100); "Calculator did not returned OK" }
+      def errorHandler = future { Thread.sleep(100); "Failed" }
       awaitEither(response, errorHandler) mustEqual "OK"
     }
     
