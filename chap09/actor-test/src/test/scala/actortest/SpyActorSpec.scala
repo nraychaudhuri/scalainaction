@@ -16,7 +16,7 @@ class SpyActorSpec extends Specification {
     
       "enable synchronous assertion of specific messages" in {
           a ! "Hello" 
-          spyActor.lastOne mustEqual "Hello"
+          spyActor.lastOne must be_== ("Hello")
       }
             
       "enable assertion of multiple messages received in specific order" in {
