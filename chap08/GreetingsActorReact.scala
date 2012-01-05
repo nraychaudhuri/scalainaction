@@ -1,3 +1,5 @@
+// run with <cmd_prompt>scala GreetingsActorReact.scala
+
 case class Name(name: String)
 
 class GreetingsActor extends scala.actors.Actor {

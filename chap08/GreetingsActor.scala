@@ -1,3 +1,4 @@
+// run with <cmd_prompt>scala GreetingsActor.scala
 
 case class Name(name: String)
 
