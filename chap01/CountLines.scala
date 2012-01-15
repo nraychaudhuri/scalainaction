@@ -1,3 +1,7 @@
+// Run with >scala CountLines.scala  or
+// run with the REPL in chap01/ via
+// scala> :load CountLines.scala
+
 import java.io.File
 import scala.io.Source
 import System._
