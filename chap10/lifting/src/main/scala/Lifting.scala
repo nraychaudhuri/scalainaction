@@ -56,7 +56,7 @@ class OptionLift extends LiftImpl[Option] {
   
 }
 
-// The following commpiles in sbt, but the REPL might reject the symbols. 
+// The following compiles in sbt, but the REPL might reject the symbols. 
 // You can replace lambda by L and alpha by X and paste it into the REPL.
 class EitherLift[R] extends LiftImpl[({type  λ[α] = Either[R, α]})#λ]{ 
   def lift0[A]: A => Either[R, A] = (a) => Right(a)
