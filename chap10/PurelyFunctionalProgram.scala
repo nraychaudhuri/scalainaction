@@ -1,3 +1,7 @@
+// You can run this in the REPL in chap10/ with  
+// scala> :load PurelyFunctionalProgram.scala
+// or the paste mode see scala> :help
+
 object PureFunctionalProgram {
   def main(args: Array[String]) = singleExpression(args.toList)
   

@@ -1,3 +1,6 @@
+// to run this in the REPL use the :paste mode, paste the content of this file to the REPL and finish with Crtl+D
+// otherwise this might cause compile problems (due to trait and companion object with same name).
+
 trait Monoid[A] {
   def append(a1: A, a2: A): A
   def empty: A

@@ -1,3 +1,7 @@
+// You can run this in the REPL in chap10/ with 
+// scala :load DesignPatterns.scala
+// or the paste mode see scala> :help
+
 //Stratgey pattern
 def calculatePrice(product: String, taxingStrategy: String => Double) = {
   val tax = taxingStrategy(product)

@@ -1,3 +1,6 @@
+// You can run this in the REPL in chap10/ with 
+// scala> :load FunctionalObject.scala
+
 class Square(var side: Int) {
   def area = side * side
 }
