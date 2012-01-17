@@ -1,3 +1,7 @@
+// Start the REPL and load 
+// > :load RichConsole.scala
+// > :load Dates.scala
+
 import java.util.Date
 import java.sql.{Date => SqlDate}
 import RichConsole._

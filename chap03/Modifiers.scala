@@ -1,3 +1,6 @@
+// Can be compiled with >scalac Modifiers.scala 
+// and made available in the REPL via> scala -cp .
+
 package outerpkg.innerpkg {
 
 class Outer {
