@@ -7,3 +7,4 @@ chap10 checked for compilability and moved to sbt 0.11.2
 chap01 checked for compilability and added run comments
 chap02 checked for compilability, added run comments and added restclient sbt 0.11.2 project
 chap03 checked for compilability, added run comments and added scala-mongo-driver-sbt as the scala-mongo-driver project build be sbt 0.11.2 project
+chap04 checked (on Windows) for compilability, added run comments and fixed some compile bugs against Scala 2.9.1.
