@@ -1,10 +1,10 @@
 // check in windows with >netstat -a
 // or in Unix with >lsof | grep TCP 
 // the used ports on your machine and enter one of them as port(val port = ...)
-// Start scala und load EitherExample.scala >:load EitherExample.scala 
+// Start the scala REPL and load EitherExample.scala >:load EitherExample.scala 
 
 
-val port = 5354
+val port = 4444
 
 def throwableToLeft[T](block: => T): Either[java.lang.Throwable, T] =
   try {
