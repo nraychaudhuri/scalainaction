@@ -1,3 +1,6 @@
+// Start scala >scala
+// load into the REPL> :load Maybe.scala
+
 sealed abstract class Maybe[+A] {
   def isEmpty: Boolean
   def get: A  

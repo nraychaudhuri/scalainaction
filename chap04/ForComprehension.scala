@@ -1,3 +1,6 @@
+// Start scala >scala
+// load into the REPL> :load ForComprehension.scala
+
 case class Artist(name: String, genre: String)
 
 val artists = List(Artist("Pink Floyd", "Rock"),

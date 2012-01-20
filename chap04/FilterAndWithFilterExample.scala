@@ -1,3 +1,5 @@
+// Start scala >scala
+// load into the REPL> :load FilterAndWithFilterExample.scala
 
 val list = List(1, 2, 3)
 var go = true        

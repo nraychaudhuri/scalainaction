@@ -1,3 +1,6 @@
+// Start scala >scala
+// load into the REPL> :load Infinite.scala
+
 def fib(n: Int): Int = n match {
   case 0 => 0
   case 1 => 1
