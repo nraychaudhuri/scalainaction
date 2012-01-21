@@ -1,3 +1,5 @@
+// Start scala and run via> :load QuickSort.scala
+
 def sort(xs: List[Int]): List[Int] = xs match { 
   case Nil => xs
   case _ => {

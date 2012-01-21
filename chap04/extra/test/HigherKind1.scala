@@ -1,3 +1,5 @@
+// Start scala and run via> :load HigherKind1.scala
+
 trait TypeConverter[-A, +B] {
   def apply(a: A): B
 }
@@ -19,4 +21,4 @@ implicit object ListToSetConverter extends HigherKindConveter[List, Set] {
 def convert[BB[_], B, AA[_], A](source: AA[A])(implicit hkConverter: HigherKindConveter[AA, BB], fo: TypeConverter[A, B]) = {
   hkConverter(source)(fo)
 }
-println(convert[Set, Int](List("1", "2", "3")))
+println(convert[Set, Int, List, String](List("1", "2", "3")))

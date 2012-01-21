@@ -1,3 +1,5 @@
+// Start scala and run via> :load Coerce.scala
+
 trait FOCoercible[-A, +B] {
   def apply(a: A): B
 }
