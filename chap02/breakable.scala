@@ -1,3 +1,6 @@
+// Run with >scala breakable.scala  or
+// load into the REPL in chap02/ via
+// scala> :load breakable.scala
 
 val breakException = new RuntimeException("break exception")
 def breakable(op: => Unit) {

@@ -3,7 +3,7 @@ import scala.actors.remote._
 import scala.actors.Actor._
 import scala.actors._
 
-object Main {
+object Main{
   def main(args : Array[String]){
     new AuditingSystem(9911)
     new ReportingSystem(9922)

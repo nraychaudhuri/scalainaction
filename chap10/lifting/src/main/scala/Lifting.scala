@@ -1,3 +1,4 @@
+
 trait Lift[F[_]] {
   // Spot the pattern in these type signatures
   // of increasing arity.
@@ -44,17 +45,22 @@ class ListLift extends LiftImpl[List] {
   def lift0[A]: A => List[A] = (a) => List(a)
   
   def ap[A, B]: List[A => B] => (List[A] => List[B]) = 
-    (xs) => (ys: List[A]) => ys.map(xs.head) 
+     (xs:List[A=>B]) => (ys: List[A]) => ys.map(xs.head) 
 }
 
 class OptionLift extends LiftImpl[Option] {
   def lift0[A]: A => Option[A] = (a) => Some(a)
 
   def ap[A, B]: Option[A => B] => (Option[A] => Option[B]) = 
-    (a) => (b: Option[A]) => b.map(a.get)
+     (a:Option[A => B]) => (b: Option[A]) => b.map(a.get)
   
 }
 
-class EitherLift[R] extends LiftImpl[({type λ[α] = Either[R, α]})#λ]{
+// The following compiles in sbt, but the REPL might reject the symbols. 
+// You can replace lambda by L and alpha by X and paste it into the REPL.
+class EitherLift[R] extends LiftImpl[({type  λ[α] = Either[R, α]})#λ]{ 
   def lift0[A]: A => Either[R, A] = (a) => Right(a)
+  
+  def ap[A, B]: Either[R, A => B] => (Either[R, A] => Either[R, B]) = 
+	(ef:Either[R, A => B]) => (ea:Either[R, A]) => ea.fold(Left(_), a => ef.fold(Left(_), f => Right(f(a))))
 }

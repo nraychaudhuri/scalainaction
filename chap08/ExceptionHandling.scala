@@ -1,3 +1,5 @@
+// run with <cmd_prompt>scala ExceptionHandling.scala
+
 import scala.actors.Actor._
 import scala.actors._
 
@@ -17,3 +19,10 @@ class UnstableActor extends Actor {
   }
 }
 
+
+val a = new UnstableActor
+a.start
+	
+a ! 'SayHello
+a ! "A message"
+// wait 10 seconds. What will you see on the screen?

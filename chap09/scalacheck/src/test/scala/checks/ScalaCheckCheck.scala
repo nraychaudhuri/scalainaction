@@ -31,9 +31,9 @@ object EitherSpecification extends Properties("Either") {
 
   property("isLeft or isRight not both") = Prop.forAll((e: Either[Int, Int]) => e.isLeft != e.isRight)
   
-  property("left value") = Prop.forAll{(n: Int) => Left(n).fold(x => x, b => error("fail")) == n }
+  property("left value") = Prop.forAll{(n: Int) => Left(n).fold(x => x, b => sys.error("fail")) == n }
   
-  property("Right value") = Prop.forAll{(n: Int) => Right(n).fold(b => error("fail"), x => x) == n }
+  property("Right value") = Prop.forAll{(n: Int) => Right(n).fold(b => sys.error("fail"), x => x) == n }
   
   property("swap values") = Prop.forAll{(e: Either[Int, Int]) => e match {
       case Left(a) => e.swap.right.get == a

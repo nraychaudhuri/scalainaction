@@ -1,3 +1,7 @@
+// Run with e.g. >scala Ordinal.scala 9 
+// or >scala Ordinal2.scala 3
+// in chap02/
+
 val suffixes = List("th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th")
 
 println(ordinal(args(0).toInt))

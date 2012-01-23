@@ -1,3 +1,16 @@
+// I recommend to build the sbt project chap02/restclient which will download any necessary dependencies.
+// 
+// To run this in the REPL, first copy httpclient-4.1.2.jar, httpcore-4.1.2.jar, commons-logging-1.1.1.jar to chap02 
+// (e.g. from ~/.ivy2/cache/org.apache.httpcomponents or the internet)
+// Then run with either on Linux/Unix
+// >rest.sh get https://github.com/nraychaudhuri/scalainaction/raw/master/chap02/RestClient.scala
+// or in Windows
+// >rest.bat get https://github.com/nraychaudhuri/scalainaction/raw/master/chap02/RestClient.scala
+//
+// The general command line is 
+// rest.sh (post | get | delete | options) -d <request parameters comma separated -h <headers comma separated> <url>
+// at minimum you should specify action(post, get, delete, options) and url
+
 import org.apache.http._
 import org.apache.http.client.entity._
 import org.apache.http.client.methods._
@@ -6,14 +19,14 @@ import org.apache.http.client.utils._
 import org.apache.http.message._  
 import org.apache.http.params._  
 
-//scala RestClient.scala post -d <request parameters comma separated -h <headers comma separated> <url>
+
 
 def parseArgs(args: Array[String]): Map[String, List[String]] = {
 
   def nameValuePair(paramName: String) = {
     def values(commaSeperatedValues: String) = commaSeperatedValues.split(",").toList
     
-    val index = args.findIndexOf(_ == paramName)
+    val index = args.indexWhere(_ == paramName)
     (paramName, if(index == -1) Nil else values(args(index + 1)))
   }
   

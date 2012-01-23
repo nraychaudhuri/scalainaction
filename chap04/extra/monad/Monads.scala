@@ -1,3 +1,9 @@
+// Start the REPL.
+// Go into paste mode via >:paste
+// Copy the content of this file and past it into the REPL.
+// Confirm with crtl+D
+// This is necessary, because the REPL ahs problems loading a class/trait and a companion object.
+
 trait Monad[M[_]] {
   def flatMap[A, B](a: M[A], f: A => M[B]): M[B]
   def unital[A](a: A): M[A]

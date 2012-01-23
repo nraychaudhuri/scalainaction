@@ -1,3 +1,5 @@
+// Start scala >scala
+// load into the REPL> :load InsertionSort.scala
 
 import collection.mutable.ArrayBuffer
 

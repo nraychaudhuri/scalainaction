@@ -1,3 +1,5 @@
+// Start the scala REPL and run via> :load HigherKind.scala
+
 //List("1", "2", "3").coerce[Set[Int]]
 
 trait TypeConverter[-A, +B] {

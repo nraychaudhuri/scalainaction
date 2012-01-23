@@ -1,3 +1,4 @@
+// Start the REPL and load the file via>:load MyScript.scala
 
 class MyScript(host:String) {
   require(host != null, "Have to provide host name")
