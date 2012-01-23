@@ -1,4 +1,4 @@
-// Start scala and run via> :load HigherKind.scala
+// Start the scala REPL and run via> :load HigherKind.scala
 
 //List("1", "2", "3").coerce[Set[Int]]
 

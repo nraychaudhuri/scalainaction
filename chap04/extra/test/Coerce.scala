@@ -1,9 +1,11 @@
-// Start scala and run via> :load Coerce.scala
+// Start the scala REPL and run via> :load Coerce.scala
 
+// First order coercible
 trait FOCoercible[-A, +B] {
   def apply(a: A): B
 }
 
+// First order bi-directional coercible 
 trait FOBicoercible[A, B] extends FOCoercible[A, B] {
   def unapply(b: B): A
 }
@@ -20,6 +22,7 @@ implicit def foidentityCoercion[A]: FOBicoercible[A, A] = new FOBicoercible[A, A
 }
 
 
+// Higher order
 trait HOCoercible[-AA[_], +BB[_]] {
   def apply[A, B](a: AA[A])(implicit fo: FOCoercible[A, B]): BB[B]
 }

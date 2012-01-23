@@ -1,4 +1,4 @@
-// Start scala and run via> :load HigherKind1.scala
+// Start the scala REPL and run via> :load HigherKind1.scala
 
 trait TypeConverter[-A, +B] {
   def apply(a: A): B
