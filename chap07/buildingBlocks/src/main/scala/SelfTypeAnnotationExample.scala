@@ -1,4 +1,4 @@
-package selfTypeAnnotation {
+package chap07.example.selfTypeAnnotation {
   trait Connection {
     def query(q: String): String
   }

@@ -1,3 +1,8 @@
+// run with: scala ActorLinking.scala
+// This you have to interrupt manually. Uncomment the 'exit...' line below and start again
+// with: scala ActorLinking.scala
+// the script will terminate.
+
 import scala.actors.Actor._
 
 val twoActor = actor {

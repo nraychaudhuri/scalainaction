@@ -1,4 +1,5 @@
 package checks
+
 import java.util.Date
 
 class Story(val id: Long, val number: String, val title: String, val dateStarted: Date) {

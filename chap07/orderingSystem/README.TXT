@@ -1,0 +1,1 @@
+Per default this project is configured for sbt 0.11.2.

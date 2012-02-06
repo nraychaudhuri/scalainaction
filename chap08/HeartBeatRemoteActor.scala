@@ -1,3 +1,6 @@
+// start scala REPL and 
+// :load HeartBeatRemoteActor.scala
+
 import scala.actors._, Actor._
 import scala.actors.remote._
 
@@ -11,11 +14,14 @@ val heartBeatActor = actor {
   }
 }
 
+// comment the following line for a probable different outcome.
+Thread.sleep(1000) // give the heartBeatActor time to register.
+
 val heartBeatActorHandle = RemoteActor.select(Node("127.0.0.1", 9999), 'HB)
 
 heartBeatActorHandle !? (50, 'HeartBeat) match {
   case Some(_) => println("server is up")
-  case None => println("it timedout, maybe server is down")
+  case None => println("it timed out, maybe server is down or not yet running.")
 }
 
 

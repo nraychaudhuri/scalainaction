@@ -5,6 +5,8 @@ trait OrderingSystem {
   
   trait Ordering {this: I with S =>
      def placeOrder(o: O): Option[Long] = {
+	   println("placing order of class " + o.getClass.getName)  // the output you can see when running Main e.g. via sbt> run
+	   
        if(itemExists(o)) {
          o.placeOrder(this)
          Some(scheduleShipping(o))

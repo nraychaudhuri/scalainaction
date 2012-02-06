@@ -1,3 +1,7 @@
+// Run with >scala LoopTill.scala  or
+// run with the REPL in chap01/ via
+// scala> :load LoopTill.scala
+
 def loopTill(cond: => Boolean)(body: => Unit): Unit = {
   if (cond) { 
     body

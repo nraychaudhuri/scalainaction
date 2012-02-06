@@ -1,3 +1,6 @@
+// in chap02 run >javac Ordinal.java
+// and then >java Ordinal 3
+
 public class Ordinal {
   
   public static void main(String[] args) {

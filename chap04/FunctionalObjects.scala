@@ -1,3 +1,6 @@
+// Start scala >scala
+// load into the REPL> :load FunctionalObjects.scala
+
 
 object foldl {
   def apply[A, B](xs: Traversable[A], defaultValue: B)(op: (B, A) => B) =  (defaultValue /: xs)(op)

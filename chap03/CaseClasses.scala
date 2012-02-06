@@ -1,4 +1,7 @@
+// Start the REPL and load the file with :load CaseClasses.scala
+
 case class Person(firstName:String, lastName: String)
+
 object Person {
   def apply(firstName:String, lastName:String) = {
     new Person(firstName, lastName)

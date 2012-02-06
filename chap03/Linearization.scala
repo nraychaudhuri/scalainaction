@@ -1,3 +1,5 @@
+// Start the REPL and load the file via>:load Linearization.scala
+
 trait A {
   def doIt = println("inside A")
 }

@@ -1,3 +1,8 @@
+// Start scala >scala
+// load Maybe.scala in the REPL first> :load Maybe.scala
+// load into the REPL> :load GetPosition.scala
+
+
 def position[A](xs: List[A], value: A): Maybe[Int] = {
   val index = xs.indexOf(value)
   if(index != -1) Just(index) else Nil

@@ -1,6 +1,9 @@
 package actorspec
-import org.specs._
-import example.actors._
+
+import org.specs2.mutable._
+import example.actors._ 
+
+
 import com.jayway.awaitility.scala._
 import com.jayway.awaitility.Awaitility._
 
@@ -9,11 +12,13 @@ class OrderingServiceSpecification extends Specification with AwaitilitySupport 
     "place order asynchronously" in {
       val s = new OrderingService().start
       s ! PlaceOrder("product id", 1, "some customer id")      
-      await until {orderSavedInDatabase("some customer id") }
-      1 must_== 1
+      await until { orderSavedInDatabase("some customer id") }
+	  
+      done
     }
-    def orderSavedInDatabase(customerId: String) = true
   }
+  def orderSavedInDatabase(customerId: String) = true
+  
 }
 
 

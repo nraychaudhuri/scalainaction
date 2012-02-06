@@ -18,9 +18,12 @@ class PayrollCalculator extends Actor {
   start()
   def act = {
       receive {
-        case Start(docRoot) => 
+        case Start(docRoot) => {
+          val f = new File(docRoot)
+          
           new File(docRoot).list.map(docRoot + _).foreach {file =>
             new CompanyPayrollActor() ! FileLoad(file)
+          }
           }
       }
   }  
@@ -31,11 +34,13 @@ class CompanyPayrollActor extends Actor {
   start()
   def act = {
     receive {
-      case FileLoad(filename) =>
+      case FileLoad(filename) => 
         println("processing the file " + filename)
         Source.fromFile(new File(filename)).getLines.foreach {line => 
           new PayrollActor() ! ProcessPayroll(line) 
         }
+        
+        reply("OK")
     }    
   }
 }
@@ -46,9 +51,9 @@ class PayrollActor extends Actor {
   def act = {
     react {
       case ProcessPayroll(data) =>
-        data.split(" ").map(_.toInt).foldLeft(0){_ + _}
+        val sum = data.split(" ").map(_.toInt).foldLeft(0){_ + _}
         println(">>>>>> current time " + System.nanoTime)
-        //reply(Payroll(10.0, 20.0))
+        reply(Result(sum, 0))
     }
   }
 }

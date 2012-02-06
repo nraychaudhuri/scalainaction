@@ -1,3 +1,7 @@
+// Run with >scala HigherOrderFunctions.scala  or
+// run with the REPL in chap01/ via
+// scala> :load HigherOrderFunctions.scala
+
 //function as value
 val inc = (x : Int) => x + 1
 println(inc(1))

@@ -1,3 +1,6 @@
+// Run with e.g. >scala Ordinal.scala 9 
+// in chap02/
+
 ordinal(args(0).toInt)
 
 def ordinal(number:Int) = number match {

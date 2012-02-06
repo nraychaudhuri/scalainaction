@@ -1,3 +1,5 @@
+// Compile via >scalac Packages.scala
+// Make available in the REPL via >scala -cp .
 
 package com.persistence {
   package mongo {

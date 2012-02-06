@@ -1,3 +1,6 @@
+// Start scala >scala
+// load into the REPL> :load HigherOrderFunctions.scala
+
 def addOne(num: Int) = {          
   def ++ = (x:Int) => x + 1
   ++(num)
@@ -5,7 +8,7 @@ def addOne(num: Int) = {
 
 def map[A, B](xs: List[A], f: A => B): List[B] = {
   xs match {
-    case List() => Nil
+    case List() => List[B]()
     case head :: tail => f(head) :: map(tail, f)
   }
 }
@@ -20,7 +23,7 @@ def map2[A, B](xs: List[A])(f: A => B): List[B] = {
 
 def flatten[B](xss: List[List[B]]): List[B] = {
   xss match {
-    case List() => Nil
+    case List() => List[B]()
     case head :: tail => head ::: flatten(tail)
   }
 }

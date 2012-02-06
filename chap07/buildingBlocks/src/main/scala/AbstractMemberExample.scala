@@ -1,6 +1,6 @@
 
 //Implementing a template method pattern by abstracting the type
-package abstractMember {
+package chap07.example.abstractMember {
   trait Calculator {
     type S
     def initialize: S
@@ -23,6 +23,7 @@ package abstractMember {
       0.0
     }
   }
+  
   class MongoClient {
     def close = {}
   }
