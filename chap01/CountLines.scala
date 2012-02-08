@@ -2,12 +2,7 @@
 // run with the REPL in chap01/ via
 // scala> :load CountLines.scala
 
-import java.io.File
-import scala.io.Source
 import System._
-
-val src = Source.fromFile(new File("someFile.txt"))
-val count = src.getLines().foldLeft(0) { 
-	(i, line) => i + 1 
-}
+val src = scala.io.Source.fromFile("someFile.txt")
+val count = src.getLines().map(x => 1).sum
 println(count)
