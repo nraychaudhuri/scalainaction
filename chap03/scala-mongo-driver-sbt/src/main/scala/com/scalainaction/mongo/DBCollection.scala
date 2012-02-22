@@ -16,7 +16,7 @@ trait ReadOnly {
         case Skip(skip, next)    => applyOptions(cursor.skip(skip), next)
         case Sort(sorting, next) => applyOptions(cursor.sort(sorting), next)
         case Limit(limit, next)  => applyOptions(cursor.limit(limit), next)
-        case NoOption() => cursor
+        case NoOption => cursor
       }
     }
     applyOptions(find(query.q), query.option)
@@ -60,14 +60,14 @@ trait LocaleAware extends ReadOnly {
   }
 }
 
-case class Query(q: DBObject, option: QueryOption = NoOption()) {
+case class Query(q: DBObject, option: QueryOption = NoOption) {
   def sort(sorting: DBObject) = Query(q, Sort(sorting, option))
   def skip(skip: Int) = Query(q, Skip(skip, option))
   def limit(limit: Int) = Query(q, Limit(limit, option))
 }
 
 sealed trait QueryOption
-case class NoOption() extends QueryOption
+case object NoOption extends QueryOption
 case class Sort(sorting: DBObject, anotherOption: QueryOption) extends QueryOption
 case class Skip(number: Int, anotherOption: QueryOption) extends QueryOption 
 case class Limit(limit: Int, anotherOption: QueryOption) extends QueryOption
