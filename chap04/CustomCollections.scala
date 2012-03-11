@@ -1,4 +1,5 @@
 // Start scala and run via> :load CustomCollections.scala
+package chap04
 
 import java.util.{Collection => JCollection, ArrayList }
 
