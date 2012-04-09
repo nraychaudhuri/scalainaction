@@ -1,0 +1,3 @@
+
+
+resolvers in ThisBuild += ScalaToolsSnapshots
