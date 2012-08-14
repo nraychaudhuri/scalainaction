@@ -8,7 +8,7 @@ public class WordCountWorker extends UntypedActor {
         if (message instanceof FileToCount) {
             FileToCount c = (FileToCount)message;
             Integer count = c.countWords();
-            getContext().replyUnsafe(new WordCount(c.url(), count));
+            getSender().tell(new WordCount(c.url(), count));
         }
         else {
             throw new IllegalArgumentException("Unknown message: " + message);

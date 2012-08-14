@@ -1,5 +1,4 @@
 package com.akkaoogle.infrastructure
-import akka.stm._
 import akka.agent.Agent
 import akka.actor.Actor
 import com.akkaoogle.calculators.messages.{Stats, FindStats, LogTimeout}
@@ -7,30 +6,26 @@ import java.util.Date
 import com.akkaoogle.db.models._
 
 class MonitorActor extends Actor {
-  self.id = "monitor"
-  val errorLog = TransactionalMap[String, Int]
-  val dbLogger = Agent[TransactionFailure](null)
+  import context._
+  val errorLogger = Agent(Map.empty[String, Int])
 
-  def preRestart = {
-    errorLog.clear
-  }
+  def preRestart = errorLogger send { old => Map.empty[String, Int] }
 
   def receive = {
     case LogTimeout(actorId, msg) =>
       logTimeout(actorId, msg)
     case FindStats(actorId) =>
-      val timeouts = errorLog.get(actorId).getOrElse(0)
-      self.reply(Stats(actorId, timeouts = timeouts))
+      val timeouts = errorLogger().getOrElse(actorId, 0)
+      sender ! Stats(actorId, timeouts = timeouts) 
   }
 
-  private def logTimeout(actorId: String, msg: String): Unit = atomic {
-    val current = errorLog.get(actorId).getOrElse(0)
-    errorLog += (actorId -> (current + 1))
-    dbLogger send {
-      l =>
-        val l = new TransactionFailure(actorId, msg, new Date(System.currentTimeMillis))
-        l.save
-        l
+  private def logTimeout(actorId: String, msg: String): Unit = {
+    errorLogger send { errorLog =>
+	    val current = errorLog.getOrElse(actorId, 0)
+      val newErrorLog =  errorLog + (actorId -> (current + 1))
+      val l = new TransactionFailure(actorId, msg, new Date(System.currentTimeMillis))
+      l.save
+      newErrorLog
     }
   }
 }

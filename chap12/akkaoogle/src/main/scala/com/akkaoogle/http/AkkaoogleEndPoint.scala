@@ -1,13 +1,13 @@
-package com.akkaoogle.http
-
-import akka.actor.{ActorRef, Actor}
+/*
+import akka.actor._
 import com.akkaoogle.db.models._
 import com.akkaoogle.infrastructure.RemoteActorServer
 import akka.http._
 import com.akkaoogle.calculators.messages.{LowestPrice, FindPrice, FindStats, Stats}
+import akka.pattern.{ask, pipe}
 
 class AkkaoogleEndPoint extends Actor with Endpoint {
-  self.dispatcher = Endpoint.Dispatcher
+  //self.dispatcher = Endpoint.Dispatcher
 
   final val AdminRoot = "/akkaoogle/admin/"
   final val Monitor = AdminRoot + "monitor"
@@ -17,14 +17,15 @@ class AkkaoogleEndPoint extends Actor with Endpoint {
   def provide(uri:String): ActorRef =
     uri match {
       case Monitor =>
-        Actor.actorOf[AdminMonitorClientActor].start
+        context.actorOf(Props[AdminMonitorClientActor])
       case Search =>
-        Actor.actorOf[SearchClientActor].start
+        context.actorOf(Props[SearchClientActor])
     }
 
-  override def preStart =
-    Actor.registry.actorsFor(classOf[RootEndpoint]).head ! Endpoint.Attach(hook, provide)
-
+  override def preStart = {
+    //Actor.registry.actorsFor(classOf[RootEndpoint]).head ! Endpoint.Attach(hook, provide)
+  }
+ 
   def receive = handleHttpRequest
 
 }
@@ -33,14 +34,16 @@ class SearchClientActor extends Actor {
   def receive = {
     case searchProduct: Post =>
       val desc = searchProduct.getParameterOrElse("productDescription", x => "")
-      val resultOption =
-        RemoteActorServer.lookup("cheapest-deal-finder") !! FindPrice(desc, 1)
-      searchProduct OK renderResult(resultOption)
+      val result =
+        (RemoteActorServer.lookup("cheapest-deal-finder") ? FindPrice(desc, 1)).mapTo[Option[LowestPrice]]
+      result onSuccess {
+	          case Some(lowestPrice)=> searchProduct OK renderResult(lowestPrice)
+	    }
   }
 
-  private def renderResult[T](resultOption: Option[T]) = {
-    val html = resultOption match {
-      case Some(Some(LowestPrice(vendorName, productDescription, price))) =>
+  private def renderResult[T](result: T) = {
+    val html = result match {
+      case LowestPrice(vendorName, productDescription, price) =>
         <div>
           <h2>The lowest price for {productDescription}
             found from {vendorName} is <b>{price}</b></h2>
@@ -63,11 +66,12 @@ class AdminMonitorClientActor extends Actor
   }
 
   private def retrieveLogs(vendors: Iterable[ExternalVendor]) = {
-    val monitor = RemoteActorServer.lookup("monitor")
-    for(v <- vendors) yield {
-      val resultOption = monitor !! FindStats(v.name)
-      resultOption.getOrElse(Stats(v.name, 0)).asInstanceOf[Stats]
-    }
+    // val monitor = RemoteActorServer.lookup("monitor")
+    // for(v <- vendors) yield {
+    //   val resultOption = monitor !! FindStats(v.name)
+    //   resultOption.getOrElse(Stats(v.name, 0)).asInstanceOf[Stats]
+    // }
+   null
   }
 
   private def renderLog(logs: Iterable[Stats]) = {
@@ -93,5 +97,5 @@ class AdminMonitorClientActor extends Actor
 
 }
 
-
+*/
 

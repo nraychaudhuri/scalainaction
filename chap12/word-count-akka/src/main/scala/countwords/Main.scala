@@ -1,25 +1,26 @@
 package countwords
 
-import akka.actor.Actor
+import akka.actor._
 
 object Main {
   class MainActor extends Actor {
     def receive = {
       case s: StartCounting =>
-         val m = Actor.actorOf[WordCountAccumulator].start
+         val m = context.actorOf(Props[WordCountAccumulator])
          m ! s
       case FinishedCounting(result) =>
         println()
         println("final result " + result)
         println()
-        Actor.registry.shutdownAll()
+        context.system.shutdown()
     }
   }
 
   def main(args: Array[String]) = run
 
   private def run = {
-    val m = Actor.actorOf[MainActor].start
+	  val system = ActorSystem("word-count")
+    val m = system.actorOf(Props[MainActor], name = "main")
     val urls = List("http://www.infoq.com/",
       "http://www.dzone.com/links/index.html",
       "http://www.manning.com/",

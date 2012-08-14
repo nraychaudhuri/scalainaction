@@ -1,0 +1,14 @@
+- implement supervisor
+
+- implement remote actor -- partially done. Figure out how to do it using configuration
+
+- implement Play mini
+
+- dispatcher -- done
+- remove ActorRegistry -- done
+- fix lookup -- done
+
+- fix timeout
+- fault tolerance with routers
+- use testkit for testing
+- remove akka mist

@@ -7,7 +7,7 @@ import javax.servlet.http.{HttpServletResponse, HttpServletRequest}
 trait FakeExternalVendor {
   val server = new Server(8080)
 
-  def fakeExternalVendorHandler(price: String => Double): Handler = {
+  private def fakeExternalVendorHandler(price: String => Double): Handler = {
      new AbstractHandler {
        def handle(target: String, baseRequest: Request, request: HttpServletRequest, response: HttpServletResponse) = {
          response.setContentType("text/html;charset=utf-8");

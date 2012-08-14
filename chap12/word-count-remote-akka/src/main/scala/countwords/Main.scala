@@ -1,30 +1,29 @@
 package countwords
 
-import akka.actor.Actor
-import akka.actor.Actor._
+import akka.actor._
+import com.typesafe.config.ConfigFactory
 
 object Main {
   class MainActor extends Actor {
+    val workerSystem = ActorSystem("workersystem", ConfigFactory.load.getConfig("workersystem"))
     def receive = {
       case s: StartCounting =>
-         val m = remote.actorFor("word-count-service", "localhost", 2552)
+         val m = workerSystem.actorOf(Props[WordCountAccumulator])
          m ! s
       case FinishedCounting(result) =>
         println()
         println("final result " + result)
         println()
-        Actor.registry.shutdownAll()
-        remote.shutdown
+        context.system.shutdown()
+				workerSystem.shutdown()
     }
   }
 
   def main(args: Array[String]) = run
 
   private def run = {
-    remote.start("localhost", 2552)
-    remote.register("word-count-service", actorOf[WordCountAccumulator])
-
-    val m = Actor.actorOf[MainActor].start
+    val localSystem = ActorSystem("main")
+    val m = localSystem.actorOf(Props[MainActor])
     val urls = List("http://www.infoq.com/",
       "http://www.dzone.com/links/index.html",
       "http://www.manning.com/",
