@@ -3,7 +3,7 @@ package countwords
 import java.io._
 import scala.io._
 import akka.actor._
-import akka.routing._
+import akka.routing.{SmallestMailboxRouter}
 import java.net.URL
 
 case class FileToCount(url:String) {
@@ -25,7 +25,7 @@ class WordCountAccumulator extends Actor {
      case StartCounting(urls, numActors) =>
        initiator = Some(sender)
        urlCount = urls.size
-       beginSorting(urls, createWorkers(numActors))
+       beginSorting(urls, numActors)
           
      case WordCount(url, count) =>
        sortedCount ::= (url, count)
@@ -35,15 +35,9 @@ class WordCountAccumulator extends Actor {
        }
   }
   
-  private def createWorkers(numActors: Int) =
-    (for (i <- 0 until numActors) yield context.actorOf(Props[WordCountWorker])).toList
-
-  private def scanFiles(docRoot: String) = 
-    new File(docRoot).list.map(docRoot + _).toList
-  
-  private[this] def beginSorting(fileNames: List[String], workers: List[ActorRef]) {
+  private[this] def beginSorting(fileNames: List[String], numActors: Int) {
 	  val balancer = context.actorOf(
-							Props[WordCountWorker].withRouter(SmallestMailboxRouter(routees = workers)), 
+							Props[WordCountWorker].withRouter(SmallestMailboxRouter(nrOfInstances = numActors)), 
 							name = "balancer")     
     fileNames.foreach( f => balancer ! FileToCount(f))
   }

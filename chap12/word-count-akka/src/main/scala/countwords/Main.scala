@@ -19,12 +19,12 @@ object Main {
   def main(args: Array[String]) = run
 
   private def run = {
-	  val system = ActorSystem("word-count")
-    val m = system.actorOf(Props[MainActor], name = "main")
+	  val system = ActorSystem(name = "word-count")
+    val m: ActorRef = system.actorOf(Props[MainActor], name = "main")
     val urls = List("http://www.infoq.com/",
       "http://www.dzone.com/links/index.html",
       "http://www.manning.com/",
       "http://www.reddit.com/")
-    m ! StartCounting(urls, 2)
+    m ! StartCounting(urls, 4)
   }
 }

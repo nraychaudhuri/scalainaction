@@ -25,23 +25,20 @@ class WordCountAccumulator extends Actor {
      case StartCounting(urls, numActors) =>
        initiator = Some(sender)
        urlCount = urls.size
-       beginSorting(urls, createWorkers(numActors))
+       beginSorting(urls, numActors)
           
      case WordCount(url, count) =>
+       println("word count === " + url)
        sortedCount ::= (url, count)
        sortedCount = sortedCount.sortWith(_._2 < _._2)
        if(sortedCount.size == urlCount) {
          initiator.foreach {_ ! FinishedCounting(sortedCount) }
-       }
-  }
-  
-  private def createWorkers(numActors: Int) =
-    (for (i <- 0 until numActors)
-        yield context.actorOf(Props[WordCountWorker])).toList
+     }
+  }  
 
-  private[this] def beginSorting(urls: List[String], workers: List[ActorRef]) {
+  private[this] def beginSorting(urls: List[String], numActors: Int) {
     val balancer = context.actorOf(
-							Props[WordCountWorker].withRouter(SmallestMailboxRouter(routees = workers)), 
+							Props[WordCountWorker].withRouter(SmallestMailboxRouter(nrOfInstances = numActors)), 
 							name = "balancer")
     urls.foreach( f => balancer ! FileToCount(f))
   }

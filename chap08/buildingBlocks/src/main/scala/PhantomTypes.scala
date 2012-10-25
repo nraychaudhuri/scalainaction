@@ -16,6 +16,8 @@ object Order {
 object OrderingSystem {
   def addItem[A, B](item: String, o: Order[A, NoItem, B]) = o.copy[A, ItemProvided, B](itemId = Some(item))
   def addShipping[A, B](address: String, o: Order[A, B, NoAddress]) = o.copy[A, B, AddressProvided](shippingAddress = Some(address))
+  
+
   def placeOrder(o: Order[InCompleteOrder, ItemProvided, AddressProvided]) = {
     o.copy[OrderCompleted, ItemProvided, AddressProvided]()
   }

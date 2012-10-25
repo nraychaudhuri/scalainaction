@@ -2,7 +2,7 @@ package com.akkaoogle.search.products.specs
 
 import org.specs2.mutable._
 import org.specs2.specification.Scope
-import com.akkaoogle.infrastructure.RemoteActorServer
+import com.akkaoogle.infrastructure.AkkaoogleActorServer
 import com.akkaoogle.helpers.FakeExternalVendor
 import com.akkaoogle.db.models._
 import com.akkaoogle.calculators.messages.{LowestPrice, FindPrice}
@@ -29,7 +29,7 @@ class SearchProductsSpec
 	
     def after = {
 	    server.stop()
-      RemoteActorServer.stop()
+      AkkaoogleActorServer.stop()
     }
   }
 
@@ -39,9 +39,9 @@ class SearchProductsSpec
        new Product("XYZ", "vendorA", 100, 10.0).save
        new ExternalVendor(name = "test", url = "http://localhost:8080/test").save
        addFakeExternalResponse { r =>  200.0D }
-       RemoteActorServer.run()
+       AkkaoogleActorServer.run()
 
-       val finder = RemoteActorServer.lookup("cheapest-deal-finder-balancer")
+       val finder = AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer")
        val future = finder ? FindPrice("XYZ", 1)
 			 val result = Await.result(future, timeout.duration)
        result must beEqualTo(Some(LowestPrice("vendorA", "XYZ", 110.0)))
@@ -51,9 +51,9 @@ class SearchProductsSpec
        new Product("XYZ", "vendorA", 100, 10.0).save
        new ExternalVendor(name = "test", url = "http://localhost:8080/test").save
        addFakeExternalResponse { r =>  50.0D }
-       RemoteActorServer.run()
+       AkkaoogleActorServer.run()
 
-       val finder = RemoteActorServer.lookup("cheapest-deal-finder-balancer")
+       val finder = AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer")
        val future = finder ? FindPrice("XYZ", 1)
 			 val result = Await.result(future, timeout.duration)
        result must beEqualTo(Some(LowestPrice("test", "XYZ", 51.0)))
@@ -63,9 +63,9 @@ class SearchProductsSpec
        new Product("XYZ", "vendorA", 100, 10.0).save
        new ExternalVendor(name = "test", url = "http://localhost:8080/test").save
        addFakeExternalResponse { r =>  Thread.sleep(200L); 50.0D }
-       RemoteActorServer.run()
+       AkkaoogleActorServer.run()
 
-       val finder = RemoteActorServer.lookup("cheapest-deal-finder-balancer")
+       val finder = AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer")
        val future = finder ? FindPrice("XYZ", 1)
 			 val result = Await.result(future, timeout.duration)
        result must beEqualTo(Some(LowestPrice("vendorA", "XYZ", 110.0)))
@@ -75,9 +75,9 @@ class SearchProductsSpec
        new Product("ABC", "vendorA", 100, 10.0).save
        new ExternalVendor(name = "test", url = "http://localhost:8080/test").save
        addFakeExternalResponse { r => 50.0D }
-       RemoteActorServer.run()
+       AkkaoogleActorServer.run()
 
-       val finder = RemoteActorServer.lookup("cheapest-deal-finder-balancer")
+       val finder = AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer")
        val future = finder ? FindPrice("XYZ", 1)
 			 val result = Await.result(future, timeout.duration)
        result must beEqualTo(Some(LowestPrice("test", "XYZ", 51.0)))
@@ -86,9 +86,9 @@ class SearchProductsSpec
     "find nothing when product is not supported" in new WithSchema {
        new Product("ABC", "vendorA", 100, 10.0).save
        new ExternalVendor(name = "test", url = "http://localhost:8080/test").save
-       RemoteActorServer.run()
+       AkkaoogleActorServer.run()
 
-       val finder = RemoteActorServer.lookup("cheapest-deal-finder-balancer")
+       val finder = AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer")
        val future = finder ? FindPrice("XYZ", 1)
 			 val result = Await.result(future, timeout.duration)
        result must beEqualTo(None)

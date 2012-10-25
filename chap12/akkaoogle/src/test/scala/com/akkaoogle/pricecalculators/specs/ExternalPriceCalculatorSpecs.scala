@@ -2,7 +2,7 @@ package com.akkaoogle.pricecalculators.specs
 
 import org.specs2.mutable._
 import org.specs2.specification.Scope
-import com.akkaoogle.infrastructure.RemoteActorServer
+import com.akkaoogle.infrastructure.AkkaoogleActorServer
 import com.akkaoogle.db.models._
 import com.akkaoogle.helpers.{FakeExternalVendor, H2Server}
 import com.akkaoogle.calculators.messages.{ LowestPrice, FindPrice }
@@ -26,7 +26,7 @@ class ExternalPriceCalculatorSpecs
 	  }
 
     override def after = {
-      RemoteActorServer.stop()
+      AkkaoogleActorServer.stop()
       server.stop()
     }
   }
@@ -44,8 +44,8 @@ class ExternalPriceCalculatorSpecs
             case _ => 1000.0D
           }
       }
-      RemoteActorServer.run()
-      val remoteCalculator = RemoteActorServer.lookup("external-load-balancer")
+      AkkaoogleActorServer.run()
+      val remoteCalculator = AkkaoogleActorServer.lookup("external-load-balancer")
       val future = (remoteCalculator ? FindPrice("XYZ", 1)).mapTo[Option[LowestPrice]]
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("test", "XYZ", 20.4)))
@@ -58,8 +58,8 @@ class ExternalPriceCalculatorSpecs
         Thread.sleep(250L)
         30.0D
       }
-      RemoteActorServer.run()
-      val remoteCalculator = RemoteActorServer.lookup("external-load-balancer")
+      AkkaoogleActorServer.run()
+      val remoteCalculator = AkkaoogleActorServer.lookup("external-load-balancer")
       val future = remoteCalculator ? FindPrice("XYZ", 1)
       Await.result(future, timeout.duration) must equalTo(None)
     }
@@ -77,8 +77,8 @@ class ExternalPriceCalculatorSpecs
             case _ => 1000.0D
           }
       }
-      RemoteActorServer.run()
-      val remoteCalculator = RemoteActorServer.lookup("external-load-balancer")
+      AkkaoogleActorServer.run()
+      val remoteCalculator = AkkaoogleActorServer.lookup("external-load-balancer")
       val future = (remoteCalculator ? FindPrice("XYZ", 1)).mapTo[Option[LowestPrice]]
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("vendorA", "XYZ", 20.4D)))
@@ -100,8 +100,8 @@ class ExternalPriceCalculatorSpecs
             case _ => 1000.0D
           }
       }
-      RemoteActorServer.run()
-      val remoteCalculator = RemoteActorServer.lookup("external-load-balancer")
+      AkkaoogleActorServer.run()
+      val remoteCalculator = AkkaoogleActorServer.lookup("external-load-balancer")
       val future = (remoteCalculator ? FindPrice("XYZ", 1)).mapTo[Option[LowestPrice]]
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("vendorD", "XYZ", 30.6D)))
@@ -118,10 +118,10 @@ class ExternalPriceCalculatorSpecs
             case _ => 1000.0D
           }
       }
-      RemoteActorServer.run()
+      AkkaoogleActorServer.run()
       TransactionFailure.findAll.size must beEqualTo(0)
       
-			val remoteCalculator = RemoteActorServer.lookup("external-load-balancer")
+			val remoteCalculator = AkkaoogleActorServer.lookup("external-load-balancer")
       val future = remoteCalculator ? FindPrice("XYZ", 1)
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("vendorB", "XYZ", 40.8D)))

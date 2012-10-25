@@ -1,7 +1,7 @@
 /*
 import akka.actor._
 import com.akkaoogle.db.models._
-import com.akkaoogle.infrastructure.RemoteActorServer
+import com.akkaoogle.infrastructure.AkkaoogleActorServer
 import akka.http._
 import com.akkaoogle.calculators.messages.{LowestPrice, FindPrice, FindStats, Stats}
 import akka.pattern.{ask, pipe}
@@ -35,7 +35,7 @@ class SearchClientActor extends Actor {
     case searchProduct: Post =>
       val desc = searchProduct.getParameterOrElse("productDescription", x => "")
       val result =
-        (RemoteActorServer.lookup("cheapest-deal-finder") ? FindPrice(desc, 1)).mapTo[Option[LowestPrice]]
+        (AkkaoogleActorServer.lookup("cheapest-deal-finder") ? FindPrice(desc, 1)).mapTo[Option[LowestPrice]]
       result onSuccess {
 	          case Some(lowestPrice)=> searchProduct OK renderResult(lowestPrice)
 	    }
@@ -66,7 +66,7 @@ class AdminMonitorClientActor extends Actor
   }
 
   private def retrieveLogs(vendors: Iterable[ExternalVendor]) = {
-    // val monitor = RemoteActorServer.lookup("monitor")
+    // val monitor = AkkaoogleActorServer.lookup("monitor")
     // for(v <- vendors) yield {
     //   val resultOption = monitor !! FindStats(v.name)
     //   resultOption.getOrElse(Stats(v.name, 0)).asInstanceOf[Stats]

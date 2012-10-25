@@ -12,25 +12,19 @@ object AkkaoogleBuild extends Build with ConfigureScalaBuild {
 	  organization := "scalainaction",
 	  scalaVersion := "2.9.2",
 	  scalacOptions ++= Seq("-unchecked", "-deprecation"),
-	  resolvers ++= Seq(
-		"Akka Repo" at "http://akka.io/repository",
-		"Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo"
-      ),
+	  resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo",
     parallelExecution in Test := false
 	)
    .settings(
    	 libraryDependencies ++= Seq(
-	  //"se.scalablesolutions.akka" % "akka-actor" % "1.1-M1",
-	  //"se.scalablesolutions.akka" % "akka-remote" % "1.1-M1",
-	  "com.typesafe.akka" % "akka-actor" % "2.0.2",
-	  "com.typesafe.akka" % "akka-remote" % "2.0.2",
-	  "com.typesafe.akka" % "akka-agent" % "2.0.2",
-	  //"se.scalablesolutions.akka" % "akka-http" % "1.1-M1",
-	  "org.specs2" %% "specs2" % "1.9" % "test",
-	  "com.h2database" % "h2" % "1.2.127",
-	  "org.squeryl" %% "squeryl" % "0.9.5-2",
-      "org.eclipse.jetty" % "jetty-distribution" % "8.0.0.M2"
-	 )).settings(offline in Global := true) 
+	     "com.typesafe.akka" % "akka-actor" % "2.0.3",
+	     "com.typesafe.akka" % "akka-remote" % "2.0.3",
+	     "com.typesafe.akka" % "akka-agent" % "2.0.3",
+	     "com.h2database" % "h2" % "1.2.127",
+	     "org.squeryl" %% "squeryl" % "0.9.5-2",
+	     "org.specs2" %% "specs2" % "1.9" % "test",
+       "org.eclipse.jetty" % "jetty-distribution" % "8.0.0.M2" % "test"
+	 )) 
 }
 
 trait ConfigureScalaBuild {

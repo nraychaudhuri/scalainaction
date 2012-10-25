@@ -20,7 +20,7 @@ object App extends Application {
 	  case GET(Path("/akkaoogle/search"))  & QueryString(qs) => Action { request =>
 		  val desc = QueryString(qs, "productDescription").get.asScala
 		  val f =
-        (RemoteActorServer.lookup("cheapest-deal-finder-balancer") ? FindPrice(desc.head, 1)).mapTo[Option[LowestPrice]]
+        (AkkaoogleActorServer.lookup("cheapest-deal-finder-balancer") ? FindPrice(desc.head, 1)).mapTo[Option[LowestPrice]]
 		  val result = f.map({
 				case Some(lowestPrice)=> 
 					Ok(lowestPrice.toString).as("text/html")

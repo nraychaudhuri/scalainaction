@@ -23,12 +23,12 @@ class InternalPriceCalculatorSpecs extends Specification {
 	  def before = {
 	    H2Server.start()
 	    AkkaoogleSchema.createSchema()
-	    RemoteActorServer.run()		
+	    AkkaoogleActorServer.run()		
   	}
 
     def after = {
       H2Server.stop()
-      RemoteActorServer.stop()
+      AkkaoogleActorServer.stop()
     }
   }
 
@@ -38,7 +38,7 @@ class InternalPriceCalculatorSpecs extends Specification {
     "apply plus percent to base price to calculate price" in new WithSchema {
       val productDescription = "XYZ"
       new Product(productDescription, "vendorA", 100, 10.0).save
-      val a = RemoteActorServer.lookup("internal-price-calculator0")
+      val a = AkkaoogleActorServer.lookup("internal-price-calculator0")
       val future = a ? FindPrice(productDescription, 1)
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("vendorA", "XYZ", 110.0)))
@@ -47,7 +47,7 @@ class InternalPriceCalculatorSpecs extends Specification {
     "calculate for multiple quantity" in new WithSchema {
       val productDescription = "XYZ"
       new Product(productDescription, "vendorA", 100, 10.0).save
-      val a = RemoteActorServer.lookup("internal-price-calculator0")
+      val a = AkkaoogleActorServer.lookup("internal-price-calculator0")
       val future = a ? FindPrice(productDescription, 2)
       val result = Await.result(future, timeout.duration)
       result must beEqualTo(Some(LowestPrice("vendorA", "XYZ", 220.0)))
@@ -55,7 +55,7 @@ class InternalPriceCalculatorSpecs extends Specification {
 
     "calculate for 10 concurrent buyers" in new WithSchema {
       (1 to 10) foreach { id => new Product("p" + id, "v" + id, 100 * id, 10.0 * id).save }
-      val calculatorActor = RemoteActorServer.lookup("internal-price-calculator0")
+      val calculatorActor = AkkaoogleActorServer.lookup("internal-price-calculator0")
       val results = (1 to 10) map { i => (calculatorActor ? FindPrice("p" + i, 1)).mapTo[Option[LowestPrice]] }
       val future = Future.sequence(results)
       val result = Await.result(future, timeout.duration)
@@ -64,7 +64,7 @@ class InternalPriceCalculatorSpecs extends Specification {
     }
 
     "calculate price when distributed to remote nodes" in new WithSchema {
-      val remoteCalculator = RemoteActorServer.lookup("internal-load-balancer")
+      val remoteCalculator = AkkaoogleActorServer.lookup("internal-load-balancer")
       val productId = "XYZ"
       new Product(productId, "vendor cool", 100, 10.0).save
       val future = remoteCalculator ? FindPrice("XYZ", 1)

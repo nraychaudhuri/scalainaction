@@ -5,6 +5,7 @@ import akka.util.duration._
 import akka.util.Timeout
 import akka.actor._
 import akka.dispatch.ExecutionContext
+import akka.pattern.AskTimeoutException
 
 package object calculators {
   import messages._
@@ -25,6 +26,4 @@ package object calculators {
     }
     f
   }
-
-  
 }

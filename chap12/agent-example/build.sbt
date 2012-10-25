@@ -1,4 +1,4 @@
-name := "wordCountAkka"
+name := "AgentExample"
 
 organization := "scalainaction"
 
@@ -8,13 +8,11 @@ scalaVersion := "2.9.2"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
-resolvers ++= Seq(
-	"Akka Repo" at "http://akka.io/repository",
-	"Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo"
-	)
+resolvers += ("Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/")
 
 libraryDependencies ++= Seq(
 	"com.typesafe.akka" % "akka-actor" % "2.0.3",
+  "com.typesafe.akka" % "akka-agent" % "2.0.3",
   "org.specs2" %% "specs2" % "1.9" % "test"
 )
 

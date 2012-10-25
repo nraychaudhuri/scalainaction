@@ -7,7 +7,7 @@ import akka.dispatch.Future
 import akka.pattern.{ ask, pipe, AskTimeoutException }
 import akka.dispatch.ExecutionContext
 import akka.pattern.AskTimeoutException
-import com.akkaoogle.infrastructure.RemoteActorServer
+import com.akkaoogle.infrastructure.AkkaoogleActorServer
 
 
 class ExternalPriceCalculator(val proxies: Iterable[ActorRef]) extends Actor {
@@ -16,7 +16,9 @@ class ExternalPriceCalculator(val proxies: Iterable[ActorRef]) extends Actor {
         val futures = proxies map { proxy =>
 	        val fp = FindPrice(productId, quantity)
           (proxy ? fp).mapTo[Option[LowestPrice]] recover {
-            case e: AskTimeoutException => Option.empty[LowestPrice]
+            case e: AskTimeoutException => 
+						  AkkaoogleActorServer.lookup("monitor") ! LogTimeout(proxy.path.name, "Timeout for " + fp)	
+							Option.empty[LowestPrice]
           }
         }
         val lowestPrice: Future[Option[LowestPrice]] = findLowestPrice(futures)
@@ -31,22 +33,11 @@ class ExternalVendorProxyActor(val v: ExternalVendor) extends Actor {
     def receive = {
       case fp: FindPrice =>
         var result: Option[LowestPrice] = Option.empty[LowestPrice]
-        //TODO find a better way to do this
         val f = Future({
           val params = "?pd=" + fp.productDescription + "&q=" + fp.quantity
           val price = Source.fromURL(v.url + params).mkString.toDouble
           Some(LowestPrice(v.name, fp.productDescription, price * fp.quantity))
         }) recover { case t => Option.empty[LowestPrice] }
-
-        val timeoutFuture = Future {
-          Thread.sleep(150)
-          Option.empty[LowestPrice]
-        }
-        val firstCompletedFuture = Future.firstCompletedOf(List(f, timeoutFuture))
-        firstCompletedFuture foreach {
-	          case None => RemoteActorServer.lookup("monitor") ! LogTimeout(v.name, "Timeout for " + fp)	
-	          case _ =>
-        } 
-        firstCompletedFuture pipeTo sender
+        f pipeTo sender
     }
 }
