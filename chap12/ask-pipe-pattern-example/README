@@ -1,0 +1,5 @@
+A SBT project with Akka 1.0 plugin, Intellij IDEA plugin and Specs 1.6.8. All the good stuff
+you need to build your next Akka project.
+
+Use "sbt idea" to generate all the Intellij project files. Enjoy!
+ 
