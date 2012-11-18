@@ -4,16 +4,13 @@ import akka.actor._
 import com.typesafe.config.ConfigFactory
 
 object Main {
-  class MainActor extends Actor {
+  class MainActor(accumulator: ActorRef) extends Actor {
     def receive = {
       case s: StartCounting =>
-         val m = context.actorOf(Props[WordCountAccumulator], name = "accumulatorActor")
-         m ! s
+        accumulator ! s
       case FinishedCounting(result) =>
         println("result is processed by " + sender.path)
-        println()
         println("final result " + result)
-        println()
         context.system.shutdown()
     }
   }
@@ -21,8 +18,9 @@ object Main {
   def main(args: Array[String]) = run
 
   private def run = {
-    val localSystem = ActorSystem("main", ConfigFactory.load.getConfig("mainsystem"))
-    val m = localSystem.actorOf(Props[MainActor])
+    val mainSystem = ActorSystem("main")
+    val accumulator = mainSystem.actorOf(Props[WordCountAccumulator], name ="accumulatorActor")
+    val m = mainSystem.actorOf(Props(new MainActor(accumulator)))
     val urls = List("http://www.infoq.com/",
       "http://www.dzone.com/links/index.html",
       "http://www.manning.com/",
