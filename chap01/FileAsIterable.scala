@@ -3,12 +3,8 @@
 // scala> :load FileAsIterable.scala
 
 
-import java.io.File
-import scala.io.Source 
-import System._
 class FileAsIterable {
-  val src = Source.fromFile(new File("someFile.txt"))
-  def iterator = src.getLines()
+  def iterator = scala.io.Source.fromFile("someFile.txt").getLines()
 }
 
 val newIterator = new FileAsIterable with Iterable[String]
