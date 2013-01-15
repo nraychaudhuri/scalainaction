@@ -14,8 +14,12 @@ class JavaToTraversable[E](javaCollection: JCollection[E]) extends Traversable[E
   }
 }
 
-// val jCol1 = new ArrayList[Int]
-// jCol1.add(100)
- 
-// val t = new JavaToTraversable(jCol1)
-// println(t map { _ + 1 })
+object JavaToTraversableExample extends App {
+  val jCol1 = new ArrayList[Int]
+  jCol1.add(100)
+  jCol1.add(200)
+  jCol1.add(300)
+
+  val t = new JavaToTraversable(jCol1)
+  println(t map { _ + 1 })  
+}

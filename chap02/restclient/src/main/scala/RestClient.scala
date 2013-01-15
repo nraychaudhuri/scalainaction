@@ -1,5 +1,5 @@
 // Compile in sbt
-// Run in sbt>run get https://github.com/nraychaudhuri/scalainaction/raw/master/chap02/RestClient.scala
+// Run in sbt>run get https://github.com/nraychaudhuri/scalainaction/raw/master/chap02/breakable.scala
 //
 // The command line in sbt is 
 // >run (post | get | delete | options) -d <request parameters comma separated -h <headers comma separated> <url>
@@ -59,7 +59,7 @@ object RestClient extends App{
 
 	def handleGetRequest = {
 	  val query = params("-d").mkString("&")
-	  val httpget = new HttpGet(url + "?" + query)
+	  val httpget = new HttpGet(s"${url}?${query}")
 	  headers.foreach { httpget.addHeader(_) }
 	  val responseBody = new DefaultHttpClient().execute(httpget, new BasicResponseHandler())
 	  println(responseBody)

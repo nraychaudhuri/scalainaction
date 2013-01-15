@@ -4,14 +4,14 @@
 // Start the scala REPL and load EitherExample.scala >:load EitherExample.scala 
 package chap04
 
-object EitherExample {
+object EitherExample extends App {
 	val port = 4444
 
 	def throwableToLeft[T](block: => T): Either[java.lang.Throwable, T] =
 	  try {
 	    Right(block)
 	  } catch {
-	    case ex => Left(ex)
+	    case ex: Throwable => Left(ex)
 	  }
 
 	import java.net._
@@ -21,3 +21,4 @@ object EitherExample {
 	  case Left(t) => t.printStackTrace
 	}	
 }
+

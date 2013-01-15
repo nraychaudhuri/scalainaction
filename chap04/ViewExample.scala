@@ -5,7 +5,7 @@ package chap04
 import scala.io._
 import scala.xml.XML
 
-object ViewExample {
+object ViewExample extends App {
 	def tweets(handle: String) = {
 	  println("processing tweets for " + handle)
 	  val source = Source.fromURL(new java.net.URL("http://search.twitter.com/search.atom?q=" + handle))   

@@ -7,6 +7,8 @@ class UAPExample {
   def someMethod = "there"
 }
 
-val o = new UAPExample
-o.someField
-o.someMethod
+object UAPExample extends App {
+  val o = new UAPExample
+  println(o.someField)
+  println(o.someMethod)  
+}

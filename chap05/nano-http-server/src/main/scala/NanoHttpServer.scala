@@ -1,8 +1,9 @@
 import java.net._
-import scala.actors._
 import scala.io._
 import java.io._
 import scala.annotation._
+import scala.concurrent._
+import ExecutionContext.Implicits.global
 
 object Server {
   import Pure._
@@ -20,7 +21,7 @@ object Server {
     run(serverSocket)
   }
 
-  private def handleRequest(client: Socket): Future[_] = Futures.future {
+  private def handleRequest(client: Socket): Future[_] = Future {
     val response = get(Source.fromInputStream(client.getInputStream))
     val out = new PrintWriter(client.getOutputStream, true)
     out.print(response.mkString(System.getProperty("line.separator")))

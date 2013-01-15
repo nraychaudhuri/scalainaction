@@ -1,7 +1,7 @@
 package com.scalainaction.mongo
 
 import com.mongodb.{DB => MongoDB}
-import scala.collection.JavaConversions._
+import scala.collection.convert.Wrappers._
 
 class DB private(val underlying: MongoDB) {  
   private def collection(name: String) = underlying.getCollection(name)

@@ -1,7 +1,7 @@
 // Start scala >scala
 // load into the REPL> :load ForComprehension.scala
 package chap04
-object ForComprehension {
+object ForComprehension extends App {
 	case class Artist(name: String, genre: String)
 
 	val artists = List(Artist("Pink Floyd", "Rock"),

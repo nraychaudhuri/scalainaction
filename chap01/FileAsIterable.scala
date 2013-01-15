@@ -4,8 +4,10 @@
 
 
 class FileAsIterable {
-  def iterator = scala.io.Source.fromFile("someFile.txt").getLines()
+  def iterator = scala.io.Source.fromFile("chap01/someFile.txt").getLines()
 }
 
-val newIterator = new FileAsIterable with Iterable[String]
-newIterator.foreach { line => println(line) }
+object FileAsIterableExample extends App {
+  val newIterator = new FileAsIterable with Iterable[String]
+  newIterator.foreach { line => println(line) }
+}

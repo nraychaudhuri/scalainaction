@@ -17,5 +17,8 @@ trait D extends A {
 }
 
 class X extends B with C with D
-val x1 = new X
-x1.doIt
+
+object Linearization extends App {
+  val x1 = new X
+  x1.doIt  
+}

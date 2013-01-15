@@ -1,3 +1,4 @@
+import scala.language.higherKinds
 
 trait Lift[F[_]] {
   // Spot the pattern in these type signatures

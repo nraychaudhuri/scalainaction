@@ -3,7 +3,7 @@
 package chap04
 import collection.mutable.ArrayBuffer
 
-object InsertionSortExample {
+object InsertionSortExample extends App {
 	def insertionSort[A <% Ordered[A]](elements: ArrayBuffer[A]): ArrayBuffer[A] = {
 	  for(firstOutOfOrder <- (1 until elements.length)) {
 	    if(elements(firstOutOfOrder) < elements(firstOutOfOrder - 1)) {

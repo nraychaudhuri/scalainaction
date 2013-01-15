@@ -1,6 +1,6 @@
 name := "scala-mongo-driver"
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0"
 
 organization := "Scala in Action"
 

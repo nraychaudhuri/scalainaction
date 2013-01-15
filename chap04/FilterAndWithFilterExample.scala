@@ -2,7 +2,7 @@
 // load into the REPL> :load FilterAndWithFilterExample.scala
 package chap04
 
-object FilterExample {
+object FilterExample extends App {
 	val list = List(1, 2, 3)
 	var go = true        
 	val x = for(i <- list; if(go)) yield {
