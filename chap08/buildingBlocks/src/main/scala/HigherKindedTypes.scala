@@ -1,5 +1,6 @@
 package HigherKindedTypes 
 
+import scala.language.higherKinds
 
 object Mappers {
   trait Mapper[F[_]] {

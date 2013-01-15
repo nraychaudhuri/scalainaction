@@ -1,4 +1,6 @@
-package chap07.payroll.typeclass
+package chap08.payroll.typeclass
+
+import scala.language.higherKinds
 
 object PayrollSystemWithTypeclass {
   case class Employee(name: String, id: Long)
@@ -26,7 +28,7 @@ object PayrollProcessors {
   }  
 }
 
-object RunPayroll {
+object RunPayroll2 {
   import PayrollSystemWithTypeclass._
   import PayrollProcessors._
   

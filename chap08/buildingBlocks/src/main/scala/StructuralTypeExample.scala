@@ -1,5 +1,6 @@
-import java.util._
-package object structuraltype {
+import java.util.Date
+
+object structuraltype extends App {
   trait SalariedWorker {
     def salary: BigDecimal
   }
@@ -26,5 +27,10 @@ package object structuraltype {
     def dob: Date
   }
   
+  def run {
+    amountPaidAsSalary2(Vector(PartTimeWorker(5, 4000.50), StudentWorker(2, 100.20)))     
+  }
+
+  run
 }
 

@@ -1,4 +1,4 @@
-package chap07.payroll
+package chap08.payroll
 
 trait PayrollSystem {
   case class Employee(name: String, id: Long) 
@@ -21,7 +21,7 @@ trait CanadaPayrollSystem extends PayrollSystem {
   }
 }
 
-object RunPayroll {
+object RunPayroll1 {
   object USPayrollInstance extends USPayrollSystem {
     type P = USPayroll
     def processPayroll(p: USPayroll) = {

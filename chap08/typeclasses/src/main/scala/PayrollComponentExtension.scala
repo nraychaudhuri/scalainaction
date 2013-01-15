@@ -1,5 +1,6 @@
-package chap07.payroll.extension
+package chap08.payroll.extension
 
+import chap08.payroll._
 
 trait JapanPayrollSystem extends PayrollSystem {
   class JapanPayroll extends Payroll {

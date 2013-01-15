@@ -1,6 +1,6 @@
-package chap07.payroll.typeclass.extension
+package chap08.payroll.typeclass.extension
 
-import chap07.payroll.typeclass._
+import chap08.payroll.typeclass._
 
 object PayrollSystemWithTypeclassExtension {
   import PayrollSystemWithTypeclass._
