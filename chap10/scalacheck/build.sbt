@@ -4,14 +4,16 @@ version := "1.0"
 
 organization := "Scala in Action"
 
-scalaVersion := "2.9.1"
+scalaVersion := "2.10.0"
 
-resolvers += "Scala Tools Releases" at  "http://scala-tools.org/repo-releases/"
-
-libraryDependencies ++= Seq (
-  "org.scala-tools.testing" % "scalacheck_2.9.1" % "1.9" % "test"
+resolvers ++= Seq(
+  "Sonatype Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
+  "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
 )
 
+libraryDependencies ++= Seq (
+  "org.scalacheck" %% "scalacheck" % "1.10.0" % "test"
+)
 
-// append -deprecation to the options passed to the Scala compiler
-scalacOptions += "-deprecation"
+// append options passed to the Scala compiler
+scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature") 

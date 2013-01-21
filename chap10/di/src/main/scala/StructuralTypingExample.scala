@@ -1,4 +1,5 @@
 package structuralTyping {
+  import scala.language.reflectiveCalls
   
   class CalculatePriceService(c: {
     val costPlusCalculator: Calculator

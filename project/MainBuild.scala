@@ -18,11 +18,19 @@ object MainBuild extends Build {
 
   //chapter 6
   val completeSbtProjectStructure = Project("chap06-complete-sbt-project-structure", file("chap06/complete_sbt_project_structure"))
-  
+
   //chapter 8
   val buildingBlocks = Project("chap08-building-blocks", file("chap08/buildingBlocks"))
   val orderingSystem = Project("chap08-ordering-system", file("chap08/orderingSystem"))
   val typeclasses = Project("chap08-typeclasses", file("chap08/typeclasses"))
+  
+  //chapter 10
+  val actorTest = Project("chap10-actor-test", file("chap10/actor-test"))
+  val di = Project("chap10-di", file("chap10/di"))
+  val scalacheck = Project("chap10-scalacheck", file("chap10/scalacheck"))
+  
+  //chapter 11
+  val javaInScala = Project("chap11-java-in-scala", file("chap11/java_in_scala"))
   
   val main = Project("scala-in-action", file("."))
     .aggregate(
@@ -38,5 +46,9 @@ object MainBuild extends Build {
       completeSbtProjectStructure,
       buildingBlocks,
       orderingSystem,
-      typeclasses)
+      typeclasses,
+      actorTest,
+      di,
+      scalacheck,
+      javaInScala)
 }

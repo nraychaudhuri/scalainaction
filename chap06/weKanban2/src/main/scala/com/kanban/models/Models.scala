@@ -36,7 +36,7 @@ class Story(val number: String, val title: String, val phase: String){
         )
         Right("Card " + this.number + " is moved to " + phase + " phase successfully.")
       } catch {
-        case exception => exception.printStackTrace ; Left(exception)        
+        case exception: Throwable => exception.printStackTrace ; Left(exception)        
       }
     }
   }
@@ -48,7 +48,7 @@ class Story(val number: String, val title: String, val phase: String){
         stories.insert(this)          
         Right("Story is created successfully")
       } catch {
-        case exception => Left(exception)
+        case exception: Throwable => Left(exception)
       }
     }
   }
@@ -57,9 +57,9 @@ class Story(val number: String, val title: String, val phase: String){
 object Story {
   def apply(number: String, title: String) = new Story(number, title, "ready")
   
-  def findAllByPhase(phase: String) = tx { from(stories)(s => where(s.phase === phase) select(s)) map(s => s) }
+  def findAllByPhase(phase: String): Iterable[Story] = tx { from(stories)(s => where(s.phase === phase) select(s)) map(s => s) }
   
-  def findByNumber(number: String) = tx { stories.where(s => s.number === number).single }
+  def findByNumber(number: String): Story = tx { stories.where(s => s.number === number).single }
 }
 
 class ValidationException(message: String) extends RuntimeException(message)

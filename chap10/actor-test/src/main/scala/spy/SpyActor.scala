@@ -2,6 +2,7 @@ package spy
 
 import scala.actors.{Actor, TIMEOUT}
 import Actor._
+import scala.language.implicitConversions
 
 class SpyActor(currentActor: Actor, timeout: Long) {
   
