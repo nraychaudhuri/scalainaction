@@ -1,16 +1,15 @@
-name := "WordCountFuture"
+name := "WordCount"
 
 version := "1.0"
 
 organization := "Scala in Action"
 
-scalaVersion := "2.9.1" 
+scalaVersion := "2.10.0" 
 
 resolvers ++= Seq(
-	"Scala Tools Releases" at  "http://scala-tools.org/repo-releases/"
-	, "Scala Tools Snapshots" at  "http://scala-tools.org/repo-snapshots/"
+  "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
 libraryDependencies ++= Seq(
-	   "org.specs2" %% "specs2" % "1.7.1" % "test"
+  "com.typesafe.akka" %% "akka-actor" % "2.1.0"
 )

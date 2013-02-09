@@ -24,6 +24,10 @@ object MainBuild extends Build {
   val orderingSystem = Project("chap08-ordering-system", file("chap08/orderingSystem"))
   val typeclasses = Project("chap08-typeclasses", file("chap08/typeclasses"))
   
+  //chapter 9
+  val wordCount = Project("chap09-word-count", file("chap09/word_count"))
+  val chapter9Examples = Project("chap09-examples", file("chap09"))
+
   //chapter 10
   val actorTest = Project("chap10-actor-test", file("chap10/actor-test"))
   val di = Project("chap10-di", file("chap10/di"))
@@ -47,6 +51,8 @@ object MainBuild extends Build {
       buildingBlocks,
       orderingSystem,
       typeclasses,
+      wordCount,
+      chapter9Examples,
       actorTest,
       di,
       scalacheck,

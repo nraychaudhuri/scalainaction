@@ -1,16 +1,22 @@
-// run with <cmd_prompt>scala GreetingsActor.scala
+object GreetingsActor extends App {
 
-case class Name(name: String)
+  import akka.actor.Props
+  import akka.actor.ActorSystem
+  import akka.actor.Actor
 
-class GreetingsActor extends scala.actors.Actor {
-  def act = {
-    receive {
+  case class Name(name: String)
+  
+  class GreetingsActor extends Actor {
+    def receive = {
       case Name(n) => println("Hello " + n)
     }
-    println("I guess I am done greeting people")
   }
-}
 
-val a = new GreetingsActor
-a.start
-a ! Name("Nilanjan")
+  val system = ActorSystem("greetings")
+  val a = system.actorOf(Props[GreetingsActor], name = "greetings-actor")
+ 
+  a ! Name("Nilanjan")
+
+  Thread.sleep(50)
+  system.shutdown() 
+}
