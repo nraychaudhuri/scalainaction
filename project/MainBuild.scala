@@ -27,6 +27,9 @@ object MainBuild extends Build {
   //chapter 9
   val wordCount = Project("chap09-word-count", file("chap09/word_count"))
   val chapter9Examples = Project("chap09-examples", file("chap09"))
+  val askPipePatternExample = Project("chap09-ask-pipe-pattern", file("chap09/ask-pipe-pattern-example"))
+  val supervisorExample = Project("chap09-supervisor-example", file("chap09/supervisor_example"))
+  val wordCountWithFuture = Project("chap09-word-count-future", file("chap09/word_count_future"))
 
   //chapter 10
   val actorTest = Project("chap10-actor-test", file("chap10/actor-test"))
@@ -53,6 +56,9 @@ object MainBuild extends Build {
       typeclasses,
       wordCount,
       chapter9Examples,
+      askPipePatternExample,
+      supervisorExample,
+      wordCountWithFuture,
       actorTest,
       di,
       scalacheck,

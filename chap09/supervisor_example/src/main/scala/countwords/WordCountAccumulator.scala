@@ -5,7 +5,7 @@ import scala.io._
 import akka.actor._
 import akka.routing._
 import java.net.URL
-import akka.util.duration._
+import scala.concurrent.duration._
 import akka.util.Timeout
 import akka.actor.SupervisorStrategy._
 
@@ -23,7 +23,7 @@ class WordCountWorker extends Actor {
   var lastSender: Option[ActorRef] = None
 
 
-  override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 3, withinTimeRange = 5 seconds) {
+  override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 3, withinTimeRange = 5.seconds) {
 	  case _: Exception => Restart
 	}
 
@@ -83,6 +83,7 @@ class WordCountAccumulator extends Actor {
     new File(docRoot).list.map(docRoot + _).toList
   
   private[this] def beginSorting(fileNames: List[String], workers: List[ActorRef]) {
+    //chapter 12 explains all the Akka routers
 	  val balancer = context.actorOf(
 							Props[WordCountWorker].withRouter(SmallestMailboxRouter(routees = workers)), 
 							name = "balancer")     

@@ -1,20 +1,16 @@
-name := "wordCountAkka"
+name := "SupervisorExample"
 
 organization := "scalainaction"
 
-version := "0.2"
+version := "0.3"
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
-resolvers ++= Seq(
-	"Akka Repo" at "http://akka.io/repository",
-	"Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo"
-	)
+resolvers += ("Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/")
 
 libraryDependencies ++= Seq(
-	"com.typesafe.akka" % "akka-actor" % "2.0.2",
-  "org.specs2" %% "specs2" % "1.9" % "test"
+  "com.typesafe.akka" %% "akka-actor" % "2.1.0"
 )
 
