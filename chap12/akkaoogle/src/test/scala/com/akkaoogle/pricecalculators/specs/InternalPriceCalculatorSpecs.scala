@@ -10,10 +10,11 @@ import com.akkaoogle.calculators.messages._
 import com.akkaoogle.infrastructure._
 import com.akkaoogle.db.AkkaoogleSchema
 import akka.pattern.{ ask, pipe }
-import akka.dispatch._
+import scala.concurrent.{Await, Future}
 import akka.util.Timeout
 import org.specs2.specification.Scope
 import com.akkaoogle.helpers._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class InternalPriceCalculatorSpecs extends Specification {
   sequential

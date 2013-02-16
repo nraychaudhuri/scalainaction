@@ -8,7 +8,7 @@ import com.akkaoogle.db.models._
 import com.akkaoogle.calculators.messages.{LowestPrice, FindPrice}
 import com.akkaoogle.db.AkkaoogleSchema
 import akka.pattern.{ask, pipe }
-import akka.dispatch._
+import scala.concurrent.Await
 import akka.util.Timeout
 import com.akkaoogle.helpers._
 

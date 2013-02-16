@@ -20,7 +20,7 @@ package models {
           table.insert(this)
           Right("Domain object is saved successfully")
         } catch {
-          case exception => Left(exception)
+          case exception: Throwable => Left(exception)
         }
       }
     }

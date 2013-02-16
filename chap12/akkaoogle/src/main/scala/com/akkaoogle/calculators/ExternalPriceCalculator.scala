@@ -3,9 +3,9 @@ import messages._
 import com.akkaoogle.db.models._
 import akka.actor._
 import scala.io.Source
-import akka.dispatch.Future
 import akka.pattern.{ ask, pipe, AskTimeoutException }
-import akka.dispatch.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import akka.pattern.AskTimeoutException
 import com.akkaoogle.infrastructure.AkkaoogleActorServer
 

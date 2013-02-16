@@ -13,7 +13,8 @@ object AkkaoogleActorServer {
 
   def run(): Unit = {
 	  println("starting the actor server...")
-	  system = Some(ActorSystem("akkaoogle", ConfigFactory.load.getConfig("akkaoogle")))
+	  system = Some(ActorSystem(name = "akkaoogle", 
+      config = ConfigFactory.load.getConfig("akkaoogle")))
     system.foreach(s => register(s))
   }
 
@@ -47,7 +48,7 @@ object AkkaoogleActorServer {
 
   private def createExternalProxyActors(vendors: Iterable[ExternalVendor])(implicit system: ActorSystem) = {
     val proxies = for(v <- vendors) yield  {
-	     println("Creating vendor proxies for " + v.name)
+	     println(s"Creating vendor proxies for ${v.name}")
 	     val ref = system.actorOf(Props(new ExternalVendorProxyActor(v))
 										.withDispatcher("dispatchers.proxy-actor-dispatcher"), name=v.name)
        ref

@@ -3,9 +3,10 @@ package com.akkaoogle.calculators
 import messages._
 import com.akkaoogle.db.models._
 import akka.actor._
-import akka.dispatch.Future
+import scala.concurrent.Future
 import akka.pattern.{ ask, pipe, AskTimeoutException }
 import com.akkaoogle.infrastructure.AkkaoogleActorServer
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class CheapestDealFinder extends Actor {
   def receive = {
@@ -17,7 +18,7 @@ class CheapestDealFinder extends Actor {
 				case e: AskTimeoutException => Option.empty[LowestPrice]
       }
       val lowestPrice: Future[Option[LowestPrice]] =
-        findLowestPrice(internalPrice :: externalPrice :: Nil)
+        findLowestPrice(Seq(internalPrice, externalPrice))
       lowestPrice pipeTo sender 
   }
 }

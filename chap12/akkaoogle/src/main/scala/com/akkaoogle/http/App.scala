@@ -8,6 +8,7 @@ import akka.pattern.{ ask, pipe, AskTimeoutException }
 import com.akkaoogle.calculators.messages._
 import play.api.libs.concurrent._
 import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * this application is registered via Global
@@ -27,7 +28,7 @@ object App extends Application {
 				case _ => 
 				  Ok("No price found").as("text/html")
 			})
-      AsyncResult(result.asPromise)
+      AsyncResult(result)
 	  }
   }
 }

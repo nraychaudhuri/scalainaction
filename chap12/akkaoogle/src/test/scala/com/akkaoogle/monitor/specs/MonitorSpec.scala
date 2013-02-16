@@ -7,7 +7,7 @@ import java.io.{FileReader, BufferedReader, File}
 import com.akkaoogle.db.models._
 import com.akkaoogle.db.AkkaoogleSchema
 import akka.pattern.{ask, pipe }
-import akka.dispatch.Await
+import scala.concurrent.Await
 import akka.util.Timeout
 import com.akkaoogle.helpers._
 

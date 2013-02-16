@@ -4,25 +4,26 @@ import Keys._
 object AkkaoogleBuild extends Build with ConfigureScalaBuild {
 
  	import H2TaskManager._
- 	lazy val scalazVersion = "6.0.3"
- 	lazy val jettyVersion = "7.3.0.v20110203"
+
   lazy val root = scalaMiniProject("com.akkaoogle","akkaoogle","1.0")
    .settings(startH2Task, stopH2Task)
    .settings(
 	  organization := "scalainaction",
-	  scalaVersion := "2.9.2",
+	  scalaVersion := "2.10.0",
 	  scalacOptions ++= Seq("-unchecked", "-deprecation"),
-	  resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo",
+
+    resolvers += ("Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"),
     parallelExecution in Test := false
 	)
    .settings(
    	 libraryDependencies ++= Seq(
-	     "com.typesafe.akka" % "akka-actor" % "2.0.3",
-	     "com.typesafe.akka" % "akka-remote" % "2.0.3",
-	     "com.typesafe.akka" % "akka-agent" % "2.0.3",
+	     "com.typesafe.akka" %% "akka-actor" % "2.1.0",
+	     "com.typesafe.akka" %% "akka-remote" % "2.1.0",
+	     "com.typesafe.akka" %% "akka-agent" % "2.1.0",
 	     "com.h2database" % "h2" % "1.2.127",
-	     "org.squeryl" %% "squeryl" % "0.9.5-2",
-	     "org.specs2" %% "specs2" % "1.9" % "test",
+       "org.squeryl" % "squeryl_2.10.0-RC5" % "0.9.5-5",
+	     //"org.squeryl" % "squeryl_2.9.2" % "0.9.5-2",
+       "org.specs2" %% "specs2" % "1.13" % "test",
        "org.eclipse.jetty" % "jetty-distribution" % "8.0.0.M2" % "test"
 	 )) 
 }
@@ -41,7 +42,7 @@ trait ConfigureScalaBuild {
     organization := org,
     resolvers += typesafe,
     resolvers += typesafeSnapshot,
-    libraryDependencies += "com.typesafe" % "play-mini_2.9.1" % "2.0.1",
+    libraryDependencies += "com.typesafe" %% "play-mini" % "2.1-RC2",
     mainClass in (Compile, run) := netty,
     ivyXML := <dependencies> <exclude org="org.springframework"/> </dependencies>
   )

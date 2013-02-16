@@ -8,8 +8,9 @@ import com.akkaoogle.helpers.{FakeExternalVendor, H2Server}
 import com.akkaoogle.calculators.messages.{ LowestPrice, FindPrice }
 import com.akkaoogle.db.AkkaoogleSchema
 import akka.pattern.{ ask, pipe }
-import akka.dispatch.Await
+import scala.concurrent.Await
 import akka.util.Timeout
+
 
 class ExternalPriceCalculatorSpecs
   extends Specification
