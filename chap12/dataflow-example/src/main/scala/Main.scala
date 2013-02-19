@@ -1,9 +1,9 @@
-import akka.actor._
-import akka.dispatch._
-import Future.flow
+import akka.dataflow._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Promise
+
 
 object Main extends App {
-	implicit val system = ActorSystem("dataflow")
 	val messageFromFuture, rawMessage, parsedMessage = Promise[String]()
 	flow {
 		messageFromFuture << parsedMessage()

@@ -2,17 +2,16 @@ name := "StmExample"
 
 organization := "scalainaction"
 
-version := "0.2"
+version := "0.3"
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
-resolvers += ("releases" at
-    "http://oss.sonatype.org/content/repositories/releases")
+resolvers += ("Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/")
 
 libraryDependencies ++= Seq(
-	"org.scala-tools" %% "scala-stm" % "0.6",
-  "org.specs2" %% "specs2" % "1.9" % "test"
+	"org.scala-stm" %% "scala-stm" % "0.7",
+  "org.specs2" %% "specs2" % "1.13" % "test"
 )
 

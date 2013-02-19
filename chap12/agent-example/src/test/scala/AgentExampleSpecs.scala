@@ -2,7 +2,6 @@ import akka.agent.Agent
 import akka.actor.ActorSystem
 import java.io.{BufferedReader, FileReader, FileWriter}
 import java.util.concurrent.CountDownLatch
-import akka.util.duration._
 import akka.util.Timeout
 import org.specs2.mutable.Specification
 

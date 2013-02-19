@@ -15,7 +15,7 @@ object StmExample {
     try {
       atomicSwap(key)
     } catch {
-      case _ => println("exception occurred")
+      case _: Throwable => println("exception occurred")
     }
   }
 
