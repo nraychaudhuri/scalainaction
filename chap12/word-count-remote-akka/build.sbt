@@ -8,10 +8,11 @@ scalaVersion := "2.10.0"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation")
 
+javacOptions += "-Xlint:deprecation"
+
 resolvers ++= Seq(
-	"Akka Repo" at "http://akka.io/repository",
 	"Typesafe Repo" at "http://repo.typesafe.com/typesafe/repo"
-	)
+)
 
 libraryDependencies ++= Seq(
 	"com.typesafe.akka" %% "akka-actor" % "2.1.0",

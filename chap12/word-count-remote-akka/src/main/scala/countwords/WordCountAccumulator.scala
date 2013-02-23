@@ -1,45 +1,47 @@
 package countwords
 
-import java.io._
-import scala.io._
-import akka.actor._
-import akka.routing._
+import akka.actor.Actor
+import akka.actor.Props
+import akka.actor.ActorRef
 import java.net.URL
+import scala.io._
 
-case class FileToCount(url:String) {
-  def countWords = {
-    Source.fromURL(new URL(url)).getLines.foldRight(0)(_.split(" ").size + _)
-  }
-}
-case class WordCount(url:String, count: Int)
-case class StartCounting(urls: List[String], numActors: Int)
-case class FinishedCounting(result: List[(String, Int)])  
+class WordCountMaster extends Actor {
 
-class WordCountAccumulator extends Actor {
-
-  private[this] var initiator: Option[ActorRef] = None
-  private[this] var urlCount: Int = 0
-  private[this] var sortedCount : List[(String, Int)] = Nil
-
+  private[this] var urlCount: Int = _
+  private[this] var sortedCount : Seq[(String, Int)] = Nil  
+    
   def receive = {
-     case StartCounting(urls, numActors) =>
-       initiator = Some(sender)
-       urlCount = urls.size
-       beginSorting(urls, numActors)
-          
-     case WordCount(url, count) =>
-       println("word count === " + url)
-       sortedCount ::= (url, count)
-       sortedCount = sortedCount.sortWith(_._2 < _._2)
-       if(sortedCount.size == urlCount) {
-         initiator.foreach {_ ! FinishedCounting(sortedCount) }
-     }
-  }  
+    case StartCounting(urls, numActors) => 
+      val workers = createWorkers(numActors)
+      urlCount = urls.size
+      beginSorting(urls, workers)
+      
+    case WordCount(url, count) => 
+      println(s" ${url} -> ${count}")
+      sortedCount = sortedCount :+ (url, count)
+      sortedCount = sortedCount.sortWith(_._2 < _._2)
+      if(sortedCount.size == urlCount) {
+        println("final result " + sortedCount)
+        finishSorting()
+      }
+  }
 
-  private[this] def beginSorting(urls: List[String], numActors: Int) {
-    val balancer = context.actorOf(
-							Props[WordCountWorker].withRouter(SmallestMailboxRouter(nrOfInstances = numActors)), 
-							name = "balancer")
-    urls.foreach( f => balancer ! FileToCount(f))
+  override def postStop(): Unit = {
+    println(s"Master actor is stopped: ${self}")
+  }
+  
+  private def createWorkers(numActors: Int) = {
+    for (i <- 0 until numActors) yield context.actorOf(Props[WordCountWorker], name = s"worker-${i}") 
+  }
+
+  private[this] def beginSorting(fileNames: Seq[String], workers: Seq[ActorRef]) {
+    fileNames.zipWithIndex.foreach( e => {
+      workers(e._2 % workers.size) ! FileToCount(e._1)
+    })
+  }
+  
+  private[this] def finishSorting() {
+    context.system.shutdown()
   }
 }

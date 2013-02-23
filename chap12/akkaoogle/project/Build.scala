@@ -22,7 +22,6 @@ object AkkaoogleBuild extends Build with ConfigureScalaBuild {
 	     "com.typesafe.akka" %% "akka-agent" % "2.1.0",
 	     "com.h2database" % "h2" % "1.2.127",
        "org.squeryl" % "squeryl_2.10.0-RC5" % "0.9.5-5",
-	     //"org.squeryl" % "squeryl_2.9.2" % "0.9.5-2",
        "org.specs2" %% "specs2" % "1.13" % "test",
        "org.eclipse.jetty" % "jetty-distribution" % "8.0.0.M2" % "test"
 	 )) 
