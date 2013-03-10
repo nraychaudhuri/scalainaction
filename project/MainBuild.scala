@@ -38,6 +38,13 @@ object MainBuild extends Build {
   
   //chapter 11
   val javaInScala = Project("chap11-java-in-scala", file("chap11/java_in_scala"))
+  val scalaInJava = Project("chap11-scala-in-java", file("chap11/scala_in_java"))
+
+  //chapter 12
+  val agentExample = Project("chap12-agent-example", file("chap12/agent-example"))
+  val dataflowExample = Project("chap12-dataflow-example", file("chap12/dataflow-example"))
+  val stmExample = Project("chap12-stm-example", file("chap12/stm-example"))
+  val wordCountRemoteAkka = Project("chap12-word-count-remote-example", file("chap12/word-count-remote-akka"))
   
   val main = Project("scala-in-action", file("."))
     .aggregate(
@@ -62,5 +69,10 @@ object MainBuild extends Build {
       actorTest,
       di,
       scalacheck,
-      javaInScala)
+      javaInScala,
+      scalaInJava,
+      agentExample,
+      dataflowExample,
+      stmExample,
+      wordCountRemoteAkka)
 }

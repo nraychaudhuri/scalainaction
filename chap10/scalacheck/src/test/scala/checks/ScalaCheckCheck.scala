@@ -10,9 +10,9 @@ object StringSpecification extends Properties("String") {
       x.startsWith(y) == x.reverse.endsWith(y.reverse)
   }
   
-  property("string comparison - WILL FAIL") = Prop.forAll {(x: String, y: String) =>
-    x > y == x.reverse > y.reverse   
-  }
+  // property("string comparison - WILL FAIL") = Prop.forAll {(x: String, y: String) =>
+  //   x > y == x.reverse > y.reverse   
+  // }
 }
 
 object EitherSpecification extends Properties("Either") {
