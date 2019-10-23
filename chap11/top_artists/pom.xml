@@ -9,7 +9,7 @@
 
 
     <properties>
-        <scala.version>2.10.0</scala.version>
+        <scala.version>2.13.1</scala.version>
         <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
     </properties>
 
